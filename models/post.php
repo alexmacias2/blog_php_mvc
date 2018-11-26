@@ -46,6 +46,36 @@ class Post {
         return new Post($post['id'], $post['author'], $post['content'], $post['imagen'], $post['titulo'], $post['creado'], $post['modificado']);
     }
     
+    public function insertar(){
+        $author = $_POST['author'];
+        $content = $_POST['post'];
+        $imagen = $_POST['imagen'];
+        $titulo = $_POST['titulo'];
+        $creado = $_POST['creado'];
+        $modificado = $_POST['modificado'];
+        $db = Db::getInstance();
+        $req = $db->prepare("INSERT INTO posts ( author, content, imagen, titulo, creado, modificado) VALUES ( '$author', '$content', '$imagen', '$titulo', '$creado', '$modificado'); ");
+        $req->execute();
+    } 
+    public function update(){
+        $post = Post::find($_GET['id']);
+        $id=$post->id;
+        $author = $_POST['author'];
+        $content = $_POST['post'];
+        $imagen = $_POST['imagen'];
+        $titulo = $_POST['titulo'];
+        $creado = $_POST['creado'];
+        $modificado = $_POST['modificado'];
+        echo $id;
+        echo $author;
+        echo $content;
+        echo $imagen;
+        echo $modificado;
+        echo $titulo;
+        echo $creado;
+    }
+    
+    
     
 
 }

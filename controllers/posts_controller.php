@@ -25,15 +25,20 @@ class PostsController {
     }
 
     public function insertar() {
-        $author = $_POST['author'];
-        $content = $_POST['post'];
-        $imagen = $_POST['imagen'];
-        $titulo = $_POST['titulo'];
-        $creado = $_POST['creado'];
-        $modificado = $_POST['modificado'];
-        $db = Db::getInstance();
-        $req = $db->prepare("INSERT INTO posts ( author, content, imagen, titulo, creado, modificado) VALUES ( '$author', '$content', '$imagen', '$titulo', '$creado', '$modificado'); ");
-        $req->execute();
+        Post::insertar();
+    }
+
+    public function frmUpdate() {
+
+        // utilizamos el id para obtener el post correspondiente
+        $post = Post::find($_GET['id']);
+
+
+        require_once('views/posts/mostrarUpdate.php');
+    }
+
+    public function update() {
+        Post::update();
     }
 
 }
