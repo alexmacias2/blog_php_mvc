@@ -9,9 +9,9 @@
         <label>Imagen:</label><br/>
         <input type="text" id="imagen" name="imagen" required="required"/><br/>
         <label>Creado:</label><br/>
-        <input type="date" id="creado" name="creado" required="required"/><br/>
+        <input type="text" id="creado" name="creado" required="required" value="La fecha se seteará."/><br/>
         <label>Modificado:</label><br/>
-        <input type="date" id="modificado" name="modificado" required="required"/><br/>
+        <input type="text" id="modificado" name="modificado" required="required" value="La fecha se seteará."/><br/>
         <input type="submit" value="Insertar" name='submit'/>
     </p>
 </form>

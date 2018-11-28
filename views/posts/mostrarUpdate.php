@@ -10,9 +10,9 @@
         <label>Imagen:</label><br/>
         <input type="text" id="imagen" name="imagen" required="required" value="<?php echo $post->imagen;?>"/><br/>
         <label>Creado:</label><br/>
-        <input type="date" id="creado" name="creado" required="required" value="<?php echo $post->creado;?>"/><br/>
+        <input type="date" id="creado" name="creado" required="required" value="<?php echo $post->creado;?>" readonly="readonly"/><br/>
         <label>Modificado:</label><br/>
-        <input type="date" id="modificado" name="modificado" required="required" value="<?php echo $post->modificado; ?>"/><br/>
+        <input type="text" id="modificado" name="modificado" required="required" value="La fecha se actualizará." readonly="readonly" /><br/>
         <input type="submit" value="Modificar" name='submit'/>
     </p>
 </form>

@@ -45,38 +45,79 @@ class Post {
         $post = $req->fetch();
         return new Post($post['id'], $post['author'], $post['content'], $post['imagen'], $post['titulo'], $post['creado'], $post['modificado']);
     }
-    
-    public function insertar(){
+
+    public function insertar() {
         $author = $_POST['author'];
         $content = $_POST['post'];
         $imagen = $_POST['imagen'];
         $titulo = $_POST['titulo'];
-        $creado = $_POST['creado'];
-        $modificado = $_POST['modificado'];
+        $creado = date('Y-m-d H:i:s');
+        $modificado = date('Y-m-d H:i:s');
         $db = Db::getInstance();
-        $req = $db->prepare("INSERT INTO posts ( author, content, imagen, titulo, creado, modificado) VALUES ( '$author', '$content', '$imagen', '$titulo', '$creado', '$modificado'); ");
-        $req->execute();
-    } 
-    public function update(){
+        $query =$db->prepare("INSERT INTO posts
+            SET author=:author, content=:content, imagen=:imagen,
+                titulo=:titulo, creado=:creado, modificado=:modificado");
+        
+        $author = htmlspecialchars(strip_tags($author));
+        $content = htmlspecialchars(strip_tags($content));
+        $imagen = htmlspecialchars(strip_tags($imagen));
+        $titulo = htmlspecialchars(strip_tags($titulo));
+        $creado = htmlspecialchars(strip_tags($creado));
+        $modificado = htmlspecialchars(strip_tags($modificado));
+        
+        $query->bindParam(':author', $author);
+        $query->bindParam(':content', $content);
+        $query->bindParam(':imagen', $imagen);
+        $query->bindParam(':titulo', $titulo);
+        $query->bindParam(':creado', $creado);
+        $query->bindParam(":modificado", $modificado);
+
+        $query->execute();
+    }
+
+    public function update() {
         $post = Post::find($_GET['id']);
-        $id=$post->id;
+        $id = $post->id;
+        $db = Db::getInstance();
         $author = $_POST['author'];
         $content = $_POST['post'];
         $imagen = $_POST['imagen'];
         $titulo = $_POST['titulo'];
         $creado = $_POST['creado'];
-        $modificado = $_POST['modificado'];
-        echo $id;
-        echo $author;
-        echo $content;
-        echo $imagen;
-        echo $modificado;
-        echo $titulo;
-        echo $creado;
+        $modificado = date('Y-m-d H:i:s');
+
+        $query = $db->prepare("UPDATE
+                posts
+            SET
+                author = :author,
+                content = :content,
+                imagen = :imagen,
+                titulo  = :titulo,
+                creado =:creado,
+                modificado =:modificado
+            WHERE
+                id = :id");
+
+        $author = htmlspecialchars(strip_tags($author));
+        $content = htmlspecialchars(strip_tags($content));
+        $imagen = htmlspecialchars(strip_tags($imagen));
+        $titulo = htmlspecialchars(strip_tags($titulo));
+        $creado = htmlspecialchars(strip_tags($creado));
+        $modificado = htmlspecialchars(strip_tags($modificado));
+        $id = htmlspecialchars(strip_tags($id));
+
+
+        // bind parameters
+        $query->bindParam(':author', $author);
+        $query->bindParam(':content', $content);
+        $query->bindParam(':imagen', $imagen);
+        $query->bindParam(':titulo', $titulo);
+        $query->bindParam(':creado', $creado);
+        $query->bindParam(":modificado", $modificado);
+        $query->bindParam(":id", $id);
+
+        $query->execute();
     }
-    
-    
-    
 
 }
 
