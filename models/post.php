@@ -49,7 +49,8 @@ class Post {
     public function insertar() {
         $author = $_POST['author'];
         $content = $_POST['post'];
-        $imagen = $_POST['imagen'];
+        $imagen = $_FILES['imagen']['tmp_name'];
+        $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
         $titulo = $_POST['titulo'];
         $creado = date('Y-m-d H:i:s');
         $modificado = date('Y-m-d H:i:s');
@@ -60,7 +61,6 @@ class Post {
 
         $author = htmlspecialchars(strip_tags($author));
         $content = htmlspecialchars(strip_tags($content));
-        $imagen = htmlspecialchars(strip_tags($imagen));
         $titulo = htmlspecialchars(strip_tags($titulo));
         $creado = htmlspecialchars(strip_tags($creado));
         $modificado = htmlspecialchars(strip_tags($modificado));
@@ -81,7 +81,8 @@ class Post {
         $db = Db::getInstance();
         $author = $_POST['author'];
         $content = $_POST['post'];
-        $imagen = $_POST['imagen'];
+        $imagen = $_FILES['imagen']['tmp_name'];
+        $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
         $titulo = $_POST['titulo'];
         $creado = $_POST['creado'];
         $modificado = date('Y-m-d H:i:s');
@@ -100,7 +101,6 @@ class Post {
 
         $author = htmlspecialchars(strip_tags($author));
         $content = htmlspecialchars(strip_tags($content));
-        $imagen = htmlspecialchars(strip_tags($imagen));
         $titulo = htmlspecialchars(strip_tags($titulo));
         $creado = htmlspecialchars(strip_tags($creado));
         $modificado = htmlspecialchars(strip_tags($modificado));
