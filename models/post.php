@@ -54,17 +54,17 @@ class Post {
         $creado = date('Y-m-d H:i:s');
         $modificado = date('Y-m-d H:i:s');
         $db = Db::getInstance();
-        $query =$db->prepare("INSERT INTO posts
+        $query = $db->prepare("INSERT INTO posts
             SET author=:author, content=:content, imagen=:imagen,
                 titulo=:titulo, creado=:creado, modificado=:modificado");
-        
+
         $author = htmlspecialchars(strip_tags($author));
         $content = htmlspecialchars(strip_tags($content));
         $imagen = htmlspecialchars(strip_tags($imagen));
         $titulo = htmlspecialchars(strip_tags($titulo));
         $creado = htmlspecialchars(strip_tags($creado));
         $modificado = htmlspecialchars(strip_tags($modificado));
-        
+
         $query->bindParam(':author', $author);
         $query->bindParam(':content', $content);
         $query->bindParam(':imagen', $imagen);
@@ -116,6 +116,14 @@ class Post {
         $query->bindParam(":modificado", $modificado);
         $query->bindParam(":id", $id);
 
+        $query->execute();
+    }
+
+    public function delete() {
+        $post = Post::find($_GET['id']);
+        $db = Db::getInstance();
+        $query = $db->prepare("DELETE FROM posts WHERE id = ?");
+        $query->bindParam(1, $post->id);
         $query->execute();
     }
 

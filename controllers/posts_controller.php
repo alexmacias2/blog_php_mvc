@@ -26,6 +26,7 @@ class PostsController {
 
     public function insertar() {
         Post::insertar();
+        header("Location:/blog_php_mvc/index.php?controller=posts&action=frmInsertar");
     }
 
     public function frmUpdate() {
@@ -39,6 +40,12 @@ class PostsController {
 
     public function update() {
         Post::update();
+        header("Location:/blog_php_mvc/index.php?controller=posts&action=index");
+    }
+
+    public function delete() {
+        Post::delete();
+        header("Location:/blog_php_mvc/index.php?controller=posts&action=index");
     }
 
 }
