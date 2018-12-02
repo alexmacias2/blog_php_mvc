@@ -59,6 +59,10 @@ class Cita {
     }
 
     function insertar() {
+        $cita = $_POST['cita'];
+        $post_id = $_POST['post_id'];
+        $creado = $_POST['creado'];
+        $oficializado = $_POST['oficializado'];
         $db = Db::getInstance();
         $query = $db->prepare("INSERT INTO citas
             SET cita=:cita, post_id=:post_id, creado=:creado,
@@ -69,6 +73,38 @@ class Cita {
         $creado = htmlspecialchars(strip_tags($creado));
         $oficializado = htmlspecialchars(strip_tags($oficializado));
 
+        $query->bindParam(':cita', $cita);
+        $query->bindParam(':post_id', $post_id);
+        $query->bindParam(':creado', $creado);
+        $query->bindParam(':oficializado', $oficializado);
+
+        $query->execute();
+    }
+
+    function update() {
+        $citas = Cita::find($_GET['id']);
+        $id = $citas->id;
+        $cita = $_POST['cita'];
+        $post_id = $_POST['post_id'];
+        $creado = $_POST['creado'];
+        $oficializado = $_POST['oficializado'];
+        $db = Db::getInstance();
+        $query = $db->prepare("UPDATE
+                citas
+            SET
+                cita = :cita,
+                post_id = :post_id,
+                creado = :creado,
+                oficializado  = :oficializado
+            WHERE
+                id = :id");
+        $id = htmlspecialchars(strip_tags($id));
+        $cita = htmlspecialchars(strip_tags($cita));
+        $post_id = htmlspecialchars(strip_tags($post_id));
+        $creado = htmlspecialchars(strip_tags($creado));
+        $oficializado = htmlspecialchars(strip_tags($oficializado));
+        
+        $query->bindParam(':id',$id);
         $query->bindParam(':cita', $cita);
         $query->bindParam(':post_id', $post_id);
         $query->bindParam(':creado', $creado);

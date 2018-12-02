@@ -1,3 +1,4 @@
+<a href='?controller=citas&action=frmUpdate&id=<?php echo $citas->id; ?>'>Update</a>
 <p><strong>Id #<?php echo $citas->id; ?></strong></p>
 <p><strong>Cita: </strong><?php echo $citas->cita; ?></p>
 <p><strong>Post_id: </strong><?php echo $citas->post_id; ?></p>

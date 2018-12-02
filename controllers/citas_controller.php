@@ -28,6 +28,20 @@ class CitasController {
         Cita::insertar();
         header("Location:/blog_php_mvc/index.php?controller=citas&action=frmInsertar");
     }
+
+    public function frmUpdate() {
+
+        // utilizamos el id para obtener el post correspondiente
+        $citas = Cita::find($_GET['id']);
+
+
+        require_once('views/citas/mostrarUpdate.php');
+    }
+
+    public function update() {
+        Cita::update();
+    }
+
 //
 //    public function frmUpdate() {
 //
@@ -47,7 +61,6 @@ class CitasController {
 //        Post::delete();
 //        header("Location:/blog_php_mvc/index.php?controller=posts&action=index");
 //    }
-
 }
 
 ?>
