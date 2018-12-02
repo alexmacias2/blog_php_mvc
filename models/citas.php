@@ -103,13 +103,21 @@ class Cita {
         $post_id = htmlspecialchars(strip_tags($post_id));
         $creado = htmlspecialchars(strip_tags($creado));
         $oficializado = htmlspecialchars(strip_tags($oficializado));
-        
-        $query->bindParam(':id',$id);
+
+        $query->bindParam(':id', $id);
         $query->bindParam(':cita', $cita);
         $query->bindParam(':post_id', $post_id);
         $query->bindParam(':creado', $creado);
         $query->bindParam(':oficializado', $oficializado);
 
+        $query->execute();
+    }
+
+    public function delete() {
+        $citas = Cita::find($_GET['id']);
+        $db = Db::getInstance();
+        $query = $db->prepare("DELETE FROM citas WHERE id = ?");
+        $query->bindParam(1, $citas->id);
         $query->execute();
     }
 

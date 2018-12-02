@@ -7,7 +7,7 @@
         <label>Titulo:</label><br/>
         <input type="text" id="titulo" name="titulo" required="required"/><br/>
         <label>Imagen:</label><br/>
-        <input type="file" id="imagen" name="imagen" required="required"/><br/>
+        <input type="file" id="imagen" name="imagen" /><br/>
         <label>Creado:</label><br/>
         <input type="text" id="creado" name="creado" required="required" value="La fecha se seteará."/><br/>
         <label>Modificado:</label><br/>

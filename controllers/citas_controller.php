@@ -40,6 +40,12 @@ class CitasController {
 
     public function update() {
         Cita::update();
+        header("Location:/blog_php_mvc/index.php?controller=citas&action=index");
+    }
+    
+    public function delete(){
+        Cita::delete();
+        header("Location:/blog_php_mvc/index.php?controller=citas&action=index");
     }
 
 //
