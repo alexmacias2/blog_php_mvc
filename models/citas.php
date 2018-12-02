@@ -45,21 +45,36 @@ class Cita {
     function readPost() {
         $db = Db::getInstance();
         //select all data
-        $query =$db->prepare( "SELECT
+        $query = $db->prepare("SELECT
                     id, author
                 FROM
                     posts
                 ORDER BY
                     author");
 
-        
+
         $query->execute();
 
         return $query;
     }
-    
-    function insertar(){
-        echo 'insertado';
+
+    function insertar() {
+        $db = Db::getInstance();
+        $query = $db->prepare("INSERT INTO citas
+            SET cita=:cita, post_id=:post_id, creado=:creado,
+                oficializado=:oficializado");
+
+        $cita = htmlspecialchars(strip_tags($cita));
+        $post_id = htmlspecialchars(strip_tags($post_id));
+        $creado = htmlspecialchars(strip_tags($creado));
+        $oficializado = htmlspecialchars(strip_tags($oficializado));
+
+        $query->bindParam(':cita', $cita);
+        $query->bindParam(':post_id', $post_id);
+        $query->bindParam(':creado', $creado);
+        $query->bindParam(':oficializado', $oficializado);
+
+        $query->execute();
     }
 
 }

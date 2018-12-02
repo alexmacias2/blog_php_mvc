@@ -8,8 +8,8 @@
                 $stmt = Cita::readPost();
 
                 // put them in a select drop-down
-                echo "<select class='form-control' name='category_id'>";
-                echo "<option>Selecciona categoria...</option>";
+                echo "<select class='form-control' name='post_id'>";
+                echo "<option>Selecciona post...</option>";
 
                 while ($row_category = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     extract($row_category);
@@ -21,7 +21,11 @@
         <label>Creado:</label><br/>
         <input type="date" id="creado" name="creado" required="required"/><br/>
         <label>Oficializado:</label><br/>
-        <input type="text" id="oficializado" name="oficializado" required="required"/><br/>
+        <select class="form-control" name="oficializado">
+            <option>Selecciona:</option>
+            <option>Si</option>
+            <option>No</option>
+        </select>
         <input type="submit" value="Insertar" name='submit'/>
     </p>
 </form>
