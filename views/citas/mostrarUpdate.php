@@ -5,10 +5,10 @@
         <input type="text" id="cita" name="cita" required="required" value='<?php echo $citas->cita?>'/><br/>
         <label>Post_id:</label><br/>
         <?php
-                // read the product categories from the database
+                // leemos los post_id de la base de datos
                 $stmt = Cita::readPost();
 
-                // put them in a select drop-down
+                // los metemos en el select como opciones
                 echo "<select class='form-control' name='post_id' required='required'>";
 
                 while ($row_category = $stmt->fetch(PDO::FETCH_ASSOC)) {

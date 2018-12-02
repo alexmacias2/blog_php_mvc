@@ -1,51 +1,46 @@
 <?php
 
-class CitasController {
+class CitasController { //controlador de la tabla citas
 
     public function index() {
-        // Guardamos todos los posts en una variable
-        $citas = Cita::all();
+        $citas = Cita::all();//Guardamos todos las citas
         require_once('views/citas/index.php');
     }
 
     public function show() {
-        // esperamos una url del tipo ?controller=posts&action=show&id=x
-        // si no nos pasan el id redirecionamos hacia la pagina de error, el id
-        //tenemos que buscarlo en la BBDD
+        // esperamos a que nos pasen una url con el id 
+        // si no recibimos el id redireccionamos a la página de error
         if (!isset($_GET['id'])) {
             return call('pages', 'error');
         }
-        // utilizamos el id para obtener el post correspondiente
+        // mediante el id mostraremos la cita que toca
         $citas = Cita::find($_GET['id']);
         require_once('views/citas/show.php');
     }
 
-    public function frmInsertar() {
+    public function frmInsertar() {//Simplemente llamamos al formulario de insertar
         require_once('views/citas/mostrarInsertar.php');
     }
 
-    public function insertar() {
+    public function insertar() {//El anterior formulario nos lleva a este método que llamar al insertar del modelo
         Cita::insertar();
         header("Location:/blog_php_mvc/index.php?controller=citas&action=frmInsertar");
     }
 
     public function frmUpdate() {
 
-        // utilizamos el id para obtener el post correspondiente
-        $citas = Cita::find($_GET['id']);
-
-
-        require_once('views/citas/mostrarUpdate.php');
+        $citas = Cita::find($_GET['id']);//cogemos el id para saber que cita vamos a actualizar
+        require_once('views/citas/mostrarUpdate.php');//vamos al formulario
     }
 
     public function update() {
-        Cita::update();
-        header("Location:/blog_php_mvc/index.php?controller=citas&action=index");
+        Cita::update();//llamamos al método update del modelo
+        header("Location:/blog_php_mvc/index.php?controller=citas&action=index");//redireccionamos al índice
     }
     
     public function delete(){
-        Cita::delete();
-        header("Location:/blog_php_mvc/index.php?controller=citas&action=index");
+        Cita::delete();//llamamos al método borrar del modelo
+        header("Location:/blog_php_mvc/index.php?controller=citas&action=index");//redireccionamos al índice
     }
 
 //

@@ -5,4 +5,4 @@
 <p><strong>Creado: </strong><?php echo $citas->creado; ?></p>
 <p><strong>Oficializado: </strong><?php echo $citas->oficializado; ?></p>
 
-
+<!--mostrara el contenido de una cita-->

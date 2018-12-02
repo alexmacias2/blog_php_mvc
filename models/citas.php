@@ -1,9 +1,8 @@
 <?php
 
-class Cita {
+class Cita {//Clase modelo de la tabla citas
 
-    // definimos tres atributos
-    // los declaramos como públicos para acceder directamente $post->author
+    //definimos los atributos del modelo y los hacemos publicos para poder acceder
     public $id;
     public $cita;
     public $post_id;
@@ -23,29 +22,26 @@ class Cita {
         $db = Db::getInstance(); //devuelve la conexion a la base de datos
         $req = $db->query('SELECT * FROM citas');
 
-        // creamos una lista de objectos post y recorremos la respuesta de la
-        //consulta
+        //guardamos todos los datos de la tabla citas mediante el foreach
         foreach ($req->fetchAll() as $citas) {
             $list[] = new Cita($citas['id'], $citas['cita'], $citas['post_id'], $citas['creado'], $citas['oficializado']);
         }
-        return $list;
+        return $list;//retornamos la lista de citas
     }
 
-    public static function find($id) {
+    public static function find($id) {//método que nos devuelve una cita mediante el id
         $db = Db::getInstance();
-        // nos aseguramos que $id es un entero
-        $id = intval($id);
-        $req = $db->prepare('SELECT * FROM citas WHERE id = :id');
-        // preparamos la sentencia y reemplazamos :id con el valor de $id
-        $req->execute(array('id' => $id));
-        $citas = $req->fetch();
-        return new Cita($citas['id'], $citas['cita'], $citas['post_id'], $citas['creado'], $citas['oficializado']);
+        $id = intval($id);//el id debe ser un int
+        $req = $db->prepare('SELECT * FROM citas WHERE id = :id');//preparamos la sentencia
+        $req->execute(array('id' => $id));//ejecutamos la sentencia remplaxando los valores
+        $citas = $req->fetch();//guardamos en la variable los datos de esta cita
+        return new Cita($citas['id'], $citas['cita'], $citas['post_id'], $citas['creado'], $citas['oficializado']);//finalmente retornamos los valores
     }
 
-    function readPost() {
+    function readPost() {//método para obtener los posibles posts que hay y que necesitaremos para el formulario de insertar y update
         $db = Db::getInstance();
-        //select all data
-        $query = $db->prepare("SELECT
+        //sentencia que recogerá todos los posts guardando solo su id y author además los ordenará por autor
+        $query = $db->prepare("SELECT 
                     id, author
                 FROM
                     posts
@@ -53,12 +49,13 @@ class Cita {
                     author");
 
 
-        $query->execute();
+        $query->execute();//ejecutamos
 
-        return $query;
+        return $query;//retornamos la sentencia
     }
 
-    function insertar() {
+    function insertar() {//método que insertará en la base de datos
+        //primero guardamos todas las variables
         $cita = $_POST['cita'];
         $post_id = $_POST['post_id'];
         $creado = $_POST['creado'];
@@ -67,21 +64,23 @@ class Cita {
         $query = $db->prepare("INSERT INTO citas
             SET cita=:cita, post_id=:post_id, creado=:creado,
                 oficializado=:oficializado");
-
+        //eliminamos la posibilidad de introducir etiquetas
         $cita = htmlspecialchars(strip_tags($cita));
         $post_id = htmlspecialchars(strip_tags($post_id));
         $creado = htmlspecialchars(strip_tags($creado));
         $oficializado = htmlspecialchars(strip_tags($oficializado));
-
+        
+        //seteamos los valores en la consulta
         $query->bindParam(':cita', $cita);
         $query->bindParam(':post_id', $post_id);
         $query->bindParam(':creado', $creado);
         $query->bindParam(':oficializado', $oficializado);
 
-        $query->execute();
+        $query->execute();//ejecutamos
     }
 
-    function update() {
+    function update() {//método que hara el update
+        // guardamos el id y las demás variables
         $citas = Cita::find($_GET['id']);
         $id = $citas->id;
         $cita = $_POST['cita'];
@@ -98,27 +97,28 @@ class Cita {
                 oficializado  = :oficializado
             WHERE
                 id = :id");
+        //como antes eliminamos etiquetas
         $id = htmlspecialchars(strip_tags($id));
         $cita = htmlspecialchars(strip_tags($cita));
         $post_id = htmlspecialchars(strip_tags($post_id));
         $creado = htmlspecialchars(strip_tags($creado));
         $oficializado = htmlspecialchars(strip_tags($oficializado));
-
+        //seteamos los valores en la sentencia preparada
         $query->bindParam(':id', $id);
         $query->bindParam(':cita', $cita);
         $query->bindParam(':post_id', $post_id);
         $query->bindParam(':creado', $creado);
         $query->bindParam(':oficializado', $oficializado);
 
-        $query->execute();
+        $query->execute();//ejecutamos
     }
 
-    public function delete() {
-        $citas = Cita::find($_GET['id']);
+    public function delete() {//método que hará el delete
+        $citas = Cita::find($_GET['id']);//guardamos los datos de la cita a eliminar
         $db = Db::getInstance();
         $query = $db->prepare("DELETE FROM citas WHERE id = ?");
-        $query->bindParam(1, $citas->id);
-        $query->execute();
+        $query->bindParam(1, $citas->id);//seteamos en la sentencia el valor del id
+        $query->execute();//ejecutamos
     }
 
 }
