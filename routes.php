@@ -12,6 +12,9 @@ function call($controller, $action) {
             require_once('models/post.php');
             $controller = new PostsController();
             break;
+        case 'citas':
+            require_once ('models/citas.php');
+            $controller=new CitasController();
     }
     //llama al método guardado en $action
     $controller->{ $action }();
@@ -21,7 +24,8 @@ function call($controller, $action) {
 // consideramos estos valores "permitidos"
 // agregando una entrada para el nuevo controlador y sus acciones.
 $controllers = array('pages' => ['home', 'error'],
-                     'posts' => ['index', 'show','frmInsertar','insertar','frmUpdate','update','delete']);
+                     'posts' => ['index', 'show','frmInsertar','insertar','frmUpdate','update','delete'],
+                     'citas' => ['index','show','readPost','frmInsertar','insertar']);
 
 if (array_key_exists($controller, $controllers)) {
     if (in_array($action, $controllers[$controller])) {
